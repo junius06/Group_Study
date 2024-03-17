@@ -4,8 +4,10 @@
 * * *
 
 ## Result
-### main-1.
+### main-1. 데이터를 엑셀로 저장
 ![Output data](./result/main-1.png)   
+### main-1. 데이터 정보 가져오기
+![Output data](./result/main-2.png)   
 
 * * *
 
