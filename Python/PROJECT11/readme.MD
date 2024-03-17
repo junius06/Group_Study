@@ -10,7 +10,7 @@
 > - python3.12 로 진행했더니, 사진과 같이 라이브러리 "pyautogui, pyperclip"에서 문제가 발생했다.
 > ![library warning](issue_pics/library.jpg)
 > - python3.11 로 설정하였더니 해당 이슈는 해결되었다.
-> ![library warning](issue_pics/select_interpreter.jpg)
+> ![library warning](/Python/PROJECT11/issue_pics/select_interpreter.jpg)
 > - 라이브러리 pyautogui 설치시 python3.11 로 설치되었던 것을 확인할 수 있었다.
 > ![library warning](issue_pics/install_pyautogui.jpg)
 
