@@ -6,7 +6,7 @@
 ## Result
 ### main-1. 데이터를 엑셀로 저장
 ![Output data](./result/main-1.png)   
-### main-1. 데이터 정보 가져오기
+### main-2. 데이터 정보 리스트로 만들어 출력
 ![Output data](./result/main-2.png)   
 
 * * *
