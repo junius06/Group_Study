@@ -1,7 +1,7 @@
 # 스터디 진행 개요
 
 ### 만들면서 배우는 파이썬과 40개의 작품들
-![book]<img src="https://image.yes24.com/goods/107490270/XL" width="190mm" height="250mm" title="book_img"></img>   
+<img src="https://image.yes24.com/goods/107490270/XL" width="190mm" height="250mm" title="book_img"></img>   
 [yes24_book purchase link](https://m.yes24.com/Goods/Detail/107490270)
 
 ### 정리
