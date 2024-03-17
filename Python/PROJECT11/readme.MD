@@ -8,11 +8,11 @@
 
 > ### Issue-1. Python Interpreter
 > - python3.12 로 진행했더니, 사진과 같이 라이브러리 "pyautogui, pyperclip"에서 문제가 발생했다.
-> ![library warning](issue_pics/library.jpg)
+> ![library warning](./issue_pics/library.png)
 > - python3.11 로 설정하였더니 해당 이슈는 해결되었다.
-> ![library warning](/Python/PROJECT11/issue_pics/select_interpreter.jpg)
+> ![library warning](./issue_pics/select_interpreter.png)
 > - 라이브러리 pyautogui 설치시 python3.11 로 설치되었던 것을 확인할 수 있었다.
-> ![library warning](issue_pics/install_pyautogui.jpg)
+> ![library warning](./issue_pics/install_pyautogui.png)
 
 > ### Issue-2. [Screenshot] '<' not supported between instances of 'str' and 'int'
 > - 스크린샷이 정상적으로 수행되지 않는 이슈가 발생했다.
