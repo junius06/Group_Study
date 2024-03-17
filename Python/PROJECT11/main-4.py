@@ -30,6 +30,3 @@ def send_message():
     
     pyautogui.write(["enter"])
     time.sleep(1.0)
-    
-    pyautogui.write(["escape"])
-    time.sleep(1.0)
