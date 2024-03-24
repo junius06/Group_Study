@@ -3,7 +3,7 @@
 import pyautogui
 import os
 
-# 라이브러리 버전이슈?
+# # 라이브러리 버전이슈?
 import pyscreeze
 import PIL
 
