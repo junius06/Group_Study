@@ -3,8 +3,8 @@ import asyncio
 from telegram.ext import Updater
 from telegram.ext import MessageHandler, filters
 
-TOKEN = "6944996198:AAEC1mKal88N4awS0TIMj0mdH8QyqA1zeDI"
-CHAT_ID = "5817150177"
+TOKEN = ""
+CHAT_ID = ""
 
 BOT = telegram.Bot(TOKEN)
 
