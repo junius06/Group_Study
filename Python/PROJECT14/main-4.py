@@ -2,6 +2,7 @@ from openpyxl import load_workbook
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from getpass import getpass
 
 load_wb = load_workbook(r"email_list.xlsx", data_only=True)
 load_ws = load_wb.active
@@ -11,7 +12,7 @@ for i in range(1, load_ws.max_row + 1):
     print("Success: ", recv_email_value)
     try:
         send_email = "joohee5079@naver.com"
-        send_pwd = "password"
+        send_pwd = getpass("Enter pwd: ")
         
         recv_email = recv_email_value
         
@@ -32,4 +33,4 @@ for i in range(1, load_ws.max_row + 1):
         mailServer.sendmail(send_email, recv_email, msg.as_string())
         mailServer.quit()
     except:
-        print("Error: ", recv_email_value)
+        print("Fail: ", recv_email_value)

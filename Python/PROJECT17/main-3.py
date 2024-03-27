@@ -1,15 +1,18 @@
 import telegram
-import asyncio
 from telegram.ext import Updater
 from telegram.ext import MessageHandler, filters
 
-TOKEN = ""
-CHAT_ID = ""
+TOKEN = "6944996198:AAEC1mKal88N4awS0TIMj0mdH8QyqA1zeDI"
+CHAT_ID = "-4197382434"
 
 BOT = telegram.Bot(TOKEN)
 
 def send_message():
     BOT.send_message(chat_id=CHAT_ID, text="자동응답 모드입니다. '아침, 점심, 저녁' 중 하나를 입력하세요.")
+    
+updater = Updater(token=TOKEN, use_context=True)
+dispatcher = updater.dispatcher
+updater.start_polling()
 
 def handler(update, context):
     user_text = update.message.text
@@ -22,13 +25,9 @@ def handler(update, context):
     else:
         BOT.send_message(chat_id=CHAT_ID, text="다시 입력하세요.")
 
-updater = Updater(token=TOKEN, use_context=True)
-dispatcher = updater.dispatcher
-
 send_message()  # 자동응답 모드 메세지 발송
 
 echo_handler = MessageHandler(filters.text, handler)
 dispatcher.add_handler(echo_handler)
 
 updater.start_polling()
-updater.idle()

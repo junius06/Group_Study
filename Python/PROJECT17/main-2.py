@@ -1,8 +1,8 @@
 import telegram
 import asyncio
 
-TOKEN = ""
-CHAT_ID = ""
+TOKEN = "6944996198:AAEC1mKal88N4awS0TIMj0mdH8QyqA1zeDI"
+CHAT_ID = "-4158176851"
 
 # bot = telegram.Bot(TOKEN)
 # bot.sendMessage(chat_id=CHAT_ID, text="테스트 메세지")

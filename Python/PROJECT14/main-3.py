@@ -3,12 +3,12 @@ import smtplib
 from email.mime.text import MIMEText
 from email.utils import formatdate
 from email.mime.multipart import MIMEMultipart
-
+from getpass import getpass
 
 send_email = "joohee5079@naver.com"
-send_pwd = "password"
+send_pwd = getpass("Enter pwd: ")
 
-recv_email = "joohee6218@gmail.com"
+recv_email = "joohee5079@naver.com"
 
 msg = MIMEMultipart()
 
