@@ -1,0 +1,7 @@
+101 Apple 1.50
+102 Banana 0.50
+103 Cherry 0.75
+104 Date 0.25
+105 Elderberry 3.00
+106 Fig 1.25
+107 Grape 0.50

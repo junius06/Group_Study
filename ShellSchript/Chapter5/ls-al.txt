@@ -1,0 +1,2 @@
+-rw-r--r--@ 1 jhkim  staff   109B  3 18 20:02 example.txt
+-rw-r--r--@ 1 jhkim  staff     0B  3 18 20:01 readme.MD
