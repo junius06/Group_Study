@@ -1,0 +1,3 @@
+([('META',
+   '/Users/jhkim/learning/Github/Group_Study/Python/PROJECT30/dist/META',
+   'EXECUTABLE')],)

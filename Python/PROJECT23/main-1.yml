@@ -1,0 +1,74 @@
+image: atlassian/default-image:latest
+
+build-dev: &build-dev
+  - step:
+      name: Build and Push
+      script:
+        - docker build -t cplabs-web2x/mvp/backend/sp-api:dev -f Dockerfile .
+        - pipe: atlassian/aws-ecr-push-image:2.4.0
+          variables:
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: "ap-northeast-2"
+            IMAGE_NAME: "cplabs-web2x/mvp/backend/sp-api"
+            TAGS: "dev"
+      services:
+        - docker
+
+build-main: &build-main
+  - step:
+      name: Build and Push
+      script:
+        - docker build -t cplabs-web2x/mvp/backend/sp-api:main -f Dockerfile .
+        - pipe: atlassian/aws-ecr-push-image:2.4.0
+          variables:
+            AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+            AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+            AWS_DEFAULT_REGION: "ap-northeast-2"
+            IMAGE_NAME: "cplabs-web2x/mvp/backend/sp-api"
+            TAGS: "main"
+      services:
+        - docker
+
+deploy-dev: &deploy-dev
+  - step:
+      name: Deploy to Server
+      runs-on: 
+        - self.hosted
+        - web2xdevmvpdev
+        - linux.shell
+      script:
+        - export AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
+        - export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
+        - export AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION"
+        - aws ecr get-login-password --region ap-northeast-2 | docker login --username "$DOCKERHUB_USERNAME" --password-stdin "$DOCKERHUB_REGISTRY"
+        - export DOCKER_HOST=""
+        - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
+        - cd /home/ubuntu/Projects/sp-api/ && docker compose -f ./docker-compose-dev.yml up -d
+        - docker rmi $(docker images -f "dangling=true" -q)
+
+deploy-main: &deploy-main
+  - step:
+      name: Deploy to Server
+      runs-on: 
+        - self.hosted
+        - web2xdevmvpsp
+        - linux.shell
+      script:
+        - export AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID"
+        - export AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY"
+        - export AWS_DEFAULT_REGION="$AWS_DEFAULT_REGION"
+        - aws ecr get-login-password --region ap-northeast-2 | docker login --username "$DOCKERHUB_USERNAME" --password-stdin "$DOCKERHUB_REGISTRY"
+        - export DOCKER_HOST=""
+        - echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin $DOCKER_REGISTRY
+        - cd /home/ubuntu/Projects/sp-api/ && docker compose -f ./docker-compose-prod.yml up -d
+        - docker rmi $(docker images -f "dangling=true" -q)
+
+pipelines:
+  branches:
+   dev:
+     - <<: *build-dev
+     - <<: *deploy-dev
+   main:
+     - <<: *build-main
+     - <<: *deploy-main
