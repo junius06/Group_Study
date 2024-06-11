@@ -1,9 +1,11 @@
 import os
 import openai
+import base64
 import streamlit as st
 from audiorecorder import audiorecorder
 # 시간정보를 위한 패키지
 from datetime import datetime
+from gtts import gTTS
 
 ##### implementation function #####
 def STT(audio, apikey):
@@ -30,6 +32,25 @@ def ask_gpt(prompt, model, apikey): # 질문 텍스트와 LLM모델을 입력으
   gptResponse = response.choices[0].message.content # GPT 모델을 통해 얻은 최종 답변 저장
   return gptResponse
 
+def TTS(response):
+  # gTTS를 활용하여 음성 파일 생성
+  filename = "output.mp3"
+  tts = gTTS(text=response, lang="ko")
+  tts.save(filename)
+  
+  # 음원 파일 자동 재생
+  with open(filename, "rb") as f:
+    data = f.read()
+    b64 = base64.b64encode(data).decode()
+    md = f"""
+        <audio autoplay="True">
+        <source src="data.audio/mp3; base64, {b64}" type="audio/mp3">
+        </audio>
+        """
+    st.markdown(md, unsafe_allow_html=True,)
+  # 파일 삭제
+  os.remove(filename)
+  
 ##### main function #####
 def main():
   # 기본 설정
@@ -68,7 +89,7 @@ def main():
   if "check_audio" not in st.session_state:
     st.session_state["check_reset"] = False # 사용자가 리셋 버튼을 클릭한 상태를 나타내는 플래그로 해당 플래그가 True일 경우 사용자의 입력을 받기 전에 프로그램이 동작하는 것을 방지.
 
-  ## 사이드바 생성  
+  ## 사이드바 생성
   with st.sidebar:
     # OpenAI API Key 입력
     st.session_state["OPENAI_API"] = st.text_input(label="OPENAI API KEY", placeholder="Enter Your API Key", value="", type="password")
@@ -87,7 +108,7 @@ def main():
       st.session_state["check_reset"] = True
 
   ## 기능 구현: 질문과 Chat-GPT의 답변을 아이폰의 문자 메세지 형태로 볼 수 있도록 구현한다.
-  col1, col2 = st.colums(2)
+  col1, col2 = st.columns(2)
   with col1:
     # 왼쪽 영역 작성
     st.subheader("질문")
@@ -110,6 +131,36 @@ def main():
   with col2:
     # 오른쪽 영역 작성
     st.subheader("답변")
+    if (audio.duration_seconds > 0) and (st.session_state["check_reset"]==False):
+      # ChatGPT에게 답변 얻기
+      response = ask_gpt(st.session_state["messages"], model, st.session_state["OPENAI_API"])
+      
+      # GPT 모델에 넣을 프롬프트를 위해 답변 내용 저장
+      st.session_state["messages"] = st.session_state ["messages"] + [{"role": "system", "content": "response"}]
+      
+      # 채팅 시각화를 위한 답변 내용 저장
+      now = datetime.now().strftime("%H:%m")
+      st.session_state["chat"] = st.session_state["chat"] + [("bot", now, response)]
+      
+      # 채팅 형식으로 시각화
+      for sender, time, message in st.session_state["chat"]:
+        if sender == "user":
+          st.write(
+            f'<div style="display:flex; align-items:center;">'
+            f'<div style="background-color:#007AFF; color:white; border-radius:12px; padding:8px 12px; margin-right:8px;">{message}</div>'
+            f'<div style="font-size:0.8rem; color:gray;">{time}</div></div>',
+            unsafe_allow_html=True)
+          st.write("")
+        else:
+          st.write(
+            f'<div style="display:flex; align-items:center; justify-content:flex-end;">'
+            f'<div style="background-color:lightgray; border-radius:12px; padding:8px 12px; margin-left:8px;">{message}</div>'
+            f'<div style="font-size:0.8rem; color:gray;">{time}</div></div>',
+            unsafe_allow_html=True)
+          st.wrtie("")
+          
+      # gTTS를 활용하여 음성 파일 생성 및 재생
+      TTS(response)
       
 if __name__=="__main__":
   main()
