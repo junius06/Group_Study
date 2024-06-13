@@ -1,8 +1,0 @@
-version: "3.9"
-
-services:
-  chatgpt:
-    container_name: AI_Assistant_voice
-    image: junius06/chatgpt_assistant_voice:latest
-    ports:
-      - "8501:8501"
