@@ -1,3 +1,5 @@
+# https://docs.github.com/ko/actions/using-workflows/workflow-syntax-for-github-actions
+
 on:
   push:
     branches:
@@ -7,7 +9,7 @@ on:
     # paths-ignore:
     #   - '/Real_ChatGPT_API/Chapter-3/**''
 
-  # workflows_dispatch:
+  # workflows_dispatch: # Prod 환경의 경우 수동버튼 생성 필요
   #   inputs:
   #     username:
   #       description: 
