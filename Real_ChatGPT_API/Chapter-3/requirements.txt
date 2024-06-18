@@ -3,3 +3,5 @@ openai==0.27.2
 gTTS==2.5.1
 pydub==0.25.1
 streamlit-audiorecorder==0.0.5
+python-dotenv==1.0.1
+pytz==2024.1
