@@ -28,10 +28,10 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        
+
       - name: Build docker image
         run: |
-          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest /Real_ChatGPT_API/Chapter-3/Dockerfile --no-cache
+          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest /Real_ChatGPT_API/Chapter-3 --no-cache
           docker images
 
       - name: Push docker image on DockerHub
