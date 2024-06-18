@@ -26,11 +26,9 @@ jobs:
     #     shell: bash
     #     working-directory: /Real_ChatGPT_API/Chapter-3/
     steps:
-      - name: Set up Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        
       - name: Build docker image
         run: |
           docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest /Real_ChatGPT_API/Chapter-3/Dockerfile --no-cache
