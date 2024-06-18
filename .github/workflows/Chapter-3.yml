@@ -26,23 +26,20 @@ jobs:
     #     shell: bash
     #     working-directory: /Real_ChatGPT_API/Chapter-3/
     steps:
+      - name: Set up Docker
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+
       - name: Build docker image
         run: |
-<<<<<<< HEAD
-          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest . --no-cache
+          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest /Real_ChatGPT_API/Chapter-3/Dockerfile --no-cache
           docker images
+
       - name: Push docker image on DockerHub
         run: |
           echo ${{ secrets.DOCKER_PW }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
           docker push ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest
-=======
-          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secret.DOCKER_USER }}/chatgpt_assistant_voice:latest . --no-cache
-          docker images
-      - name: Push docker image on DockerHub
-        run: |
-          echo ${{ secret.DOCKER_PW }} | docker login -u ${{ secret.DOCKER_USER }} --password-stdin
-          docker push ${{ secret.DOCKER_USER }}/chatgpt_assistant_voice:latest
->>>>>>> 69372eabf75a053b1030fb668c1e31c3f45a0079
 
   deploy:
     runs-on: ubuntu-latest
@@ -50,15 +47,32 @@ jobs:
     steps:
       - name: Pull docker image
         run: |
-<<<<<<< HEAD
           ssh ubuntu@${{ secrets.SERVER }} 'export DOCKER_HOST="" && docker compose -f ~/bot/docker-compose.yaml up -d'
           ssh ubuntu@${{ secrets.SERVER }} 'docker ps -a'
-=======
-          ssh ubuntu@${{ secret.SERVER }} 'export DOCKER_HOST="" && docker compose -f ~/bot/docker-compose.yaml up -d'
-          ssh ubuntu@${{ secret.SERVER }} 'docker ps -a'
->>>>>>> 69372eabf75a053b1030fb668c1e31c3f45a0079
       
 ###################################################
 # 2. market place의 action 사용하여 빌드 & 배포 자동화 진행
 ###################################################
 # jobs:
+  # build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v2
+
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v2
+
+  #     - name: Login to Docker Hub
+  #       uses: docker/login-action@v2
+  #       with:
+  #         username: ${{ secrets.DOCKER_USER }}
+  #         password: ${{ secrets.DOCKER_PW }}
+
+  #     - name: Build and push Docker image
+  #       uses: docker/build-push-action@v3
+  #       with:
+  #         context: /Real_ChatGPT_API/Chapter-3/Dockerfile
+  #         file: /Real_ChatGPT_API/Chapter-3/Dockerfile
+  #         push: true
+  #         tags: ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest
