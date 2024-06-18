@@ -2,8 +2,8 @@ on:
   push:
     branches:
       - main
-    paths:
-      - '/Real_ChatGPT_API/Chapter-3/**'
+    # paths:
+    #   - '/Real_ChatGPT_API/Chapter-3/**'
     # paths-ignore:
     #   - '/Real_ChatGPT_API/Chapter-3/**''
 
