@@ -28,12 +28,12 @@ jobs:
     steps:
       - name: Build docker image
         run: |
-          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t junius06/chatgpt_assistant_voice:latest . --no-cache
+          docker build -f /Real_ChatGPT_API/Chapter-3/Dockerfile -t ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest . --no-cache
           docker images
       - name: Push docker image on DockerHub
         run: |
-          docker login 
-          docker push junius06/chatgpt_assistant_voice:latest
+          echo ${{ secrets.DOCKER_PW }} | docker login -u ${{ secrets.DOCKER_USER }} --password-stdin
+          docker push ${{ secrets.DOCKER_USER }}/chatgpt_assistant_voice:latest
 
   deploy:
     runs-on: ubuntu-latest
@@ -41,10 +41,10 @@ jobs:
     steps:
       - name: Pull docker image
         run: |
-          ssh ubuntu@${{ secret.SERVER }} .. docker pull junius06/chatgpt_assistant_voice:latest
-          ssh ubuntu@${{ secret.SERVER }} .. docker ps -a
+          ssh ubuntu@${{ secrets.SERVER }} 'export DOCKER_HOST="" && docker compose -f ~/bot/docker-compose.yaml up -d'
+          ssh ubuntu@${{ secrets.SERVER }} 'docker ps -a'
       
 ###################################################
-# 2. marketplace의 action 사용하여 빌드 & 배포 자동화 진행
+# 2. market place의 action 사용하여 빌드 & 배포 자동화 진행
 ###################################################
 # jobs:
