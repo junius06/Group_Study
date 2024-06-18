@@ -7,13 +7,13 @@ on:
     # paths-ignore:
     #   - '/Real_ChatGPT_API/Chapter-3/**''
 
-  workflows_dispatch:
-    inputs:
-      username:
-        description: 
-        default: 
-        required:
-        type: 
+  # workflows_dispatch:
+  #   inputs:
+  #     username:
+  #       description: 
+  #       default: 
+  #       required:
+  #       type: 
 
 ###################################################
 # 1. action 사용하지 않고 단순 명령어로 빌드 & 배포 자동화 진행
