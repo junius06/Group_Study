@@ -20,10 +20,10 @@ def sendPhoto(chat_id, image_path):
     response_data = response.json()
     
     # telegram API 응답값을 호출하여 해당 응답을 변수에 저장함. https://api.telegram.org/bot{BOT_TOKEN}/getUpdates
-    if response_data.get('ok'): # ok 키를 가져와서 ok 키 값이 True일 경우, {'ok': True} 반환
+    if response_data.get('ok'): # ok==True 의 경우 {'ok': True} 반환
         return {'ok': True}
-    else:
-        error_code = response_data.get('error_code') # ok 키 값이 False일 경우 아래와 같이 반환
+    else: # ok==False 아래와 같이 반환
+        error_code = response_data.get('error_code')
         description = response_data.get('description')
         return {'ok': False, 'error_code': error_code, 'description': description}
 
