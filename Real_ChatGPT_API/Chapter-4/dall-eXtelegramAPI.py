@@ -84,6 +84,7 @@ elif model=="dall-e-3":
     size_map = d3_size_map
     size_prompt = "(1. 1024x1024 / 2. 1024x1792 / 3. 1792x1024): "
     
+prompt = get_input("3. Enter image description: ")
 size = get_input(f"4. Enter image size {size_prompt}", 
                  valid_options=["1", "2", "3"],
                  value_map=size_map
